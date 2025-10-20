@@ -400,14 +400,14 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: '100%' }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="fixed inset-4 sm:inset-auto sm:bottom-4 sm:right-4 w-auto sm:w-96 h-[calc(100dvh-2rem)] sm:h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
+          className="fixed top-6 bottom-16 left-2.5 right-2.5 sm:inset-auto sm:bottom-4 sm:right-4 w-auto sm:w-96 h-auto sm:h-[600px] max-h-[calc(100dvh-5rem)] sm:max-h-none bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
         >
           {/* ヘッダー */}
-          <div className="bg-white border-b border-gray-200 p-3 sm:p-4 shadow-sm">
-            <div className="flex items-start justify-between gap-2">
+          <div className="bg-white border-b border-gray-200 p-2 sm:p-4 shadow-sm">
+            <div className="flex items-start justify-between gap-1.5">
               <div className="flex-1 min-w-0">
-                <h2 className="text-base sm:text-lg font-bold text-gray-800">お問い合わせチャット</h2>
-                <p className="text-xs sm:text-xs text-gray-500 mt-1 sm:mt-1.5 font-normal">サービスに関してのご質問はこちら</p>
+                <h2 className="text-sm sm:text-lg font-bold text-gray-800">お問い合わせチャット</h2>
+                <p className="text-[10px] sm:text-xs text-gray-500 mt-0.5 sm:mt-1.5 font-normal">サービスに関してのご質問</p>
               </div>
               <button
                 onClick={handleClose}
@@ -424,7 +424,7 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
           {/* メッセージエリア */}
           <div
             ref={messagesContainerRef}
-            className="flex-1 overflow-y-auto p-4 space-y-3 bg-gradient-to-b from-slate-50 via-white to-slate-50"
+            className="flex-1 overflow-y-auto p-2 sm:p-4 space-y-2 sm:space-y-3 bg-gradient-to-b from-slate-50 via-white to-slate-50"
           >
             {isLoading ? (
               <div className="flex items-center justify-center h-full">
@@ -455,14 +455,14 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
                   className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] sm:max-w-xs rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 shadow-sm transition-all duration-200 ${
+                    className={`max-w-[85%] sm:max-w-xs rounded-lg sm:rounded-xl px-2.5 sm:px-4 py-1.5 sm:py-2.5 shadow-sm transition-all duration-200 ${
                       message.role === 'user'
                         ? 'bg-blue-600 text-white rounded-br-none'
                         : 'bg-gray-100 text-gray-800 rounded-bl-none'
                     }`}
                   >
-                    <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
-                    <span className={`text-xs mt-1 sm:mt-1.5 block font-light ${
+                    <p className="text-[12px] sm:text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                    <span className={`text-[10px] sm:text-xs mt-0.5 sm:mt-1.5 block font-light ${
                       message.role === 'user'
                         ? 'text-blue-200'
                         : 'text-gray-500'
@@ -476,9 +476,9 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
           </div>
 
           {/* 入力エリア */}
-          <div className="border-t border-gray-100 bg-white space-y-2 sm:space-y-3 p-2.5 sm:p-3.5">
+          <div className="border-t border-gray-100 bg-white space-y-1.5 sm:space-y-3 p-2 sm:p-3.5">
             {/* メッセージ入力 */}
-            <div className="flex gap-1.5 sm:gap-2">
+            <div className="flex gap-1 sm:gap-2">
               <input
                 ref={inputRef}
                 type="text"
@@ -486,12 +486,12 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
                 onChange={(e) => setInputText(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="メッセージを入力..."
-                className="flex-1 px-3 sm:px-3.5 py-2 sm:py-2.5 border border-gray-200 rounded-lg sm:rounded-xl text-xs sm:text-sm bg-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-500/20 transition-all duration-200 placeholder:text-gray-400"
+                className="flex-1 px-2.5 sm:px-3.5 py-1.5 sm:py-2.5 border border-gray-200 rounded-lg sm:rounded-xl text-[12px] sm:text-sm bg-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-500/20 transition-all duration-200 placeholder:text-gray-400"
               />
               <button
                 onClick={() => sendMessage()}
                 disabled={isTyping || !inputText.trim() || !conversationId}
-                className="px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg sm:rounded-xl hover:shadow-lg hover:from-blue-700 hover:to-blue-600 disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-xs sm:text-sm font-semibold transition-all duration-200 transform hover:scale-105 active:scale-95"
+                className="px-2.5 sm:px-4 py-1.5 sm:py-2.5 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg sm:rounded-xl hover:shadow-lg hover:from-blue-700 hover:to-blue-600 disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-[10px] sm:text-sm font-semibold transition-all duration-200 transform hover:scale-105 active:scale-95"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5.951-1.429 5.951 1.429a1 1 0 001.169-1.409l-7-14z" />
@@ -503,7 +503,7 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
             <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg sm:rounded-xl border border-blue-100 overflow-hidden">
               <button
                 onClick={() => setShowContactForm(!showContactForm)}
-                className="w-full text-left text-xs font-semibold text-gray-700 py-2 sm:py-2.5 px-3 sm:px-3.5 hover:bg-blue-100/50 transition-colors duration-200 flex items-center justify-between group"
+                className="w-full text-left text-[10px] sm:text-xs font-semibold text-gray-700 py-1.5 sm:py-2.5 px-2 sm:px-3.5 hover:bg-blue-100/50 transition-colors duration-200 flex items-center justify-between group"
               >
                 <span className="flex items-center gap-2">
                   <svg className={`w-4 h-4 text-blue-600 transform transition-transform duration-300 ${showContactForm ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20">
@@ -520,7 +520,7 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="space-y-1.5 px-3 py-2.5 sm:px-3.5 sm:py-3 border-t border-blue-100 bg-white"
+                  className="space-y-1 px-2 py-2 sm:px-3.5 sm:py-3 border-t border-blue-100 bg-white"
                 >
                   <input
                     type="text"
@@ -529,7 +529,7 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
                     onChange={(e) =>
                       setContactInfo({ ...contactInfo, name: e.target.value })
                     }
-                    className="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-xs bg-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-500/20 transition-all duration-200 placeholder:text-gray-300"
+                    className="w-full px-2 py-1 border border-gray-200 rounded-lg text-[11px] sm:text-xs bg-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-500/20 transition-all duration-200 placeholder:text-gray-300"
                   />
                   <input
                     type="email"
@@ -538,11 +538,11 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
                     onChange={(e) =>
                       setContactInfo({ ...contactInfo, email: e.target.value })
                     }
-                    className="w-full px-2.5 py-1.5 border border-gray-200 rounded-lg text-xs bg-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-500/20 transition-all duration-200 placeholder:text-gray-300"
+                    className="w-full px-2 py-1 border border-gray-200 rounded-lg text-[11px] sm:text-xs bg-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-500/20 transition-all duration-200 placeholder:text-gray-300"
                   />
                   <button
                     onClick={updateContactInfo}
-                    className="w-full px-2.5 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-700 hover:to-teal-700 text-xs font-semibold transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-sm"
+                    className="w-full px-2 py-1 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg hover:from-emerald-700 hover:to-teal-700 text-[10px] sm:text-xs font-semibold transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-sm"
                   >
                     登録する
                   </button>
