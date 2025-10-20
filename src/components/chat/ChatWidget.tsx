@@ -400,7 +400,7 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: '100%' }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="fixed bottom-0 right-0 left-0 sm:bottom-4 sm:right-4 sm:left-auto w-full sm:w-96 h-screen sm:h-[600px] bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
+          className="fixed bottom-0 right-0 left-0 sm:bottom-4 sm:right-4 sm:left-auto mx-auto sm:mx-0 w-[calc(100%-1.5rem)] sm:w-96 h-[100dvh] sm:h-[600px] max-h-[100dvh] sm:max-h-none bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
         >
           {/* ヘッダー */}
           <div className="bg-white border-b border-gray-200 p-4 shadow-sm">
