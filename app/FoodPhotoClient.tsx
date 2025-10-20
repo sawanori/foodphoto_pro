@@ -1690,24 +1690,24 @@ const Footer = memo(({ onOpenChat }: { onOpenChat: () => void }) => (
           <h3 className="font-bold mb-4">リンク</h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="/about" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://non-turn.com/about" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 会社概要
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://non-turn.com/privacy" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 個人情報保護方針
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://non-turn.com/terms" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 サービス規約
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="/sitemap" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://non-turn.com/sitemap" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 サイトマップ
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
@@ -1715,18 +1715,14 @@ const Footer = memo(({ onOpenChat }: { onOpenChat: () => void }) => (
           <h3 className="font-bold mb-4">関連サービス</h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="/services/movie" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://non-turn.com/services/movie" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 動画制作サービス
-              </Link>
+              </a>
             </li>
             <li>
-              <button 
-                onClick={onOpenChat}
-                className="text-gray-400 hover:text-white transition-colors text-left"
-                data-chat-open
-              >
+              <a href="https://non-turn.com/contact" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
                 お問い合わせ
-              </button>
+              </a>
             </li>
           </ul>
         </div>
