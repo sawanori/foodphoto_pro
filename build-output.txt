@@ -1,0 +1,24 @@
+
+> foodphotopro@0.1.0 build
+> next build --turbopack
+
+   ▲ Next.js 15.5.4 (Turbopack)
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Finished writing to disk in 222ms
+ ✓ Compiled successfully in 1883ms
+   Linting and checking validity of types ...
+Failed to compile.
+
+./src/components/chat/ChatWidget.tsx:186:17
+Type error: Type '{ role: any; }' is missing the following properties from type 'Message': id, content, created_at
+
+[0m [90m 184 |[39m           console[33m.[39mlog([32m'New message received:'[39m[33m,[39m payload[33m.[39m[36mnew[39m)[33m;[39m
+ [90m 185 |[39m           [90m// 新しいメッセージを追加[39m
+[31m[1m>[22m[39m[90m 186 |[39m           [36mconst[39m newMessage[33m:[39m [33mMessage[39m [33m=[39m {
+ [90m     |[39m                 [31m[1m^[22m[39m
+ [90m 187 |[39m             [33m...[39mpayload[33m.[39m[36mnew[39m[33m,[39m
+ [90m 188 |[39m             role[33m:[39m payload[33m.[39m[36mnew[39m[33m.[39mrole [33m===[39m [32m'assistant'[39m [33m?[39m [32m'agent'[39m [33m:[39m payload[33m.[39m[36mnew[39m[33m.[39mrole[33m,[39m
+ [90m 189 |[39m           }[33m;[39m[0m
+Next.js build worker exited with code: 1 and signal: null

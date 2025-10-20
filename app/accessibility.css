@@ -1,0 +1,298 @@
+/**
+ * Accessibility Enhancements CSS
+ * WCAG 2.1 Level AA Compliance
+ */
+
+/* High Contrast Colors for Better Readability */
+:root {
+  --high-contrast-text: #000000;
+  --high-contrast-bg: #ffffff;
+  --high-contrast-primary: #ff6b00;
+  --high-contrast-secondary: #0066ff;
+  --high-contrast-error: #dc2626;
+  --high-contrast-success: #059669;
+  --focus-outline: #ff6b00;
+}
+
+/* Ensure minimum contrast ratio of 4.5:1 for normal text */
+.text-gray-500 {
+  color: #6b7280 !important; /* Darkened for better contrast */
+}
+
+.text-gray-600 {
+  color: #4b5563 !important; /* Darkened for better contrast */
+}
+
+.text-gray-700 {
+  color: #374151 !important; /* Darkened for better contrast */
+}
+
+/* Ensure minimum contrast ratio of 3:1 for large text */
+h1, h2, h3, h4, h5, h6,
+.text-xl, .text-2xl, .text-3xl, .text-4xl, .text-5xl {
+  font-weight: 600; /* Increase weight for better readability */
+}
+
+/* Focus Styles for Keyboard Navigation */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--focus-outline) !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px rgba(255, 107, 0, 0.1);
+}
+
+/* Remove default browser focus styles */
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+select:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip Link Styles */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--high-contrast-primary);
+  color: white;
+  padding: 12px 24px;
+  text-decoration: none;
+  z-index: 100000;
+  border-radius: 0 0 8px 8px;
+  font-weight: bold;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Screen Reader Only Content */
+.sr-only,
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Focus Within for Better Group Focus */
+.focus-within\:ring-2:focus-within {
+  box-shadow: 0 0 0 2px var(--focus-outline);
+}
+
+/* Button Contrast Improvements */
+button, .button, [role="button"] {
+  min-height: 44px; /* Touch target size */
+  min-width: 44px;
+  position: relative;
+}
+
+/* Ensure buttons have sufficient contrast */
+button:not(:disabled), .button:not(:disabled) {
+  color: inherit;
+}
+
+button:disabled, .button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Form Field Enhancements */
+input, textarea, select {
+  min-height: 44px; /* Touch target size */
+  padding: 8px 12px;
+  border: 2px solid #9ca3af;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:hover:not(:disabled),
+textarea:hover:not(:disabled),
+select:hover:not(:disabled) {
+  border-color: #6b7280;
+}
+
+/* Error States with High Contrast */
+input[aria-invalid="true"],
+textarea[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border-color: var(--high-contrast-error) !important;
+  background-color: #fef2f2;
+}
+
+.error-message {
+  color: var(--high-contrast-error);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+/* Success States */
+input[aria-invalid="false"],
+textarea[aria-invalid="false"],
+select[aria-invalid="false"] {
+  border-color: var(--high-contrast-success);
+  background-color: #f0fdf4;
+}
+
+/* Required Field Indicators */
+.required-indicator {
+  color: var(--high-contrast-error);
+  font-weight: bold;
+  margin-left: 4px;
+}
+
+/* Link Underlines for Better Visibility */
+a:not(.no-underline) {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:hover:not(.no-underline) {
+  text-decoration-thickness: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  * {
+    border-width: 2px !important;
+  }
+  
+  button, .button {
+    border: 2px solid currentColor !important;
+  }
+  
+  input, textarea, select {
+    border-width: 2px !important;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Dark Mode Contrast Adjustments */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --high-contrast-text: #ffffff;
+    --high-contrast-bg: #000000;
+    --high-contrast-primary: #ff8c33;
+    --high-contrast-secondary: #4d94ff;
+  }
+  
+  .text-gray-500 {
+    color: #9ca3af !important;
+  }
+  
+  .text-gray-600 {
+    color: #d1d5db !important;
+  }
+  
+  .text-gray-700 {
+    color: #e5e7eb !important;
+  }
+}
+
+/* Modal and Dialog Accessibility */
+[role="dialog"] {
+  position: fixed;
+  z-index: 9999;
+  padding: 20px;
+}
+
+[role="dialog"][aria-modal="true"] {
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+}
+
+/* Live Region Styles */
+[aria-live] {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+[aria-live].visible {
+  position: static;
+  left: auto;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+
+/* Focus Trap Container */
+[data-focus-trap="active"] {
+  position: relative;
+}
+
+/* Keyboard Navigation Indicators */
+.keyboard-navigating *:focus {
+  outline: 3px solid var(--focus-outline) !important;
+  outline-offset: 2px !important;
+}
+
+/* Touch Target Size */
+@media (pointer: coarse) {
+  button, a, input, textarea, select, [role="button"], [tabindex="0"] {
+    min-height: 48px;
+    min-width: 48px;
+  }
+}
+
+/* Print Styles for Accessibility */
+@media print {
+  .no-print,
+  .skip-link,
+  [aria-hidden="true"] {
+    display: none !important;
+  }
+  
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+}
+
+/* Loading States */
+[aria-busy="true"] {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+[aria-busy="true"]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

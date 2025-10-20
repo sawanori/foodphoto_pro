@@ -1,0 +1,54 @@
+/* モバイル用ヒーロー画像の最適化 */
+@media (max-width: 768px) {
+  /* スマートフォンでヒーロー画像が全高をカバー */
+  .hero-image-mobile {
+    object-fit: cover !important;
+    object-position: center !important;
+    min-height: 100vh;
+    height: 100vh;
+  }
+  
+  /* アスペクト比を維持しながら全体をカバー */
+  .hero-section-mobile {
+    height: 100vh;
+    height: 100dvh; /* 動的ビューポート高さ対応 */
+  }
+}
+
+/* タブレット縦向き対応（iPad 11インチ縦など） */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* タブレット縦向きでも縦写真のサイズに合わせて表示 */
+  .hero-image-mobile {
+    object-fit: cover !important;
+    object-position: center !important;
+    min-height: 100vh;
+    height: 100vh;
+    /* 横写真を拡大して高さを埋める */
+    transform: scale(1.0);
+  }
+  
+  .hero-section-mobile {
+    height: 100vh;
+    height: 100dvh; /* 動的ビューポート高さ対応 */
+    overflow: hidden; /* はみ出し部分を隠す */
+  }
+}
+
+/* デスクトップ対応 */
+@media (min-width: 1025px) {
+  /* PCサイズでも高さを統一して表示 */
+  .hero-image-mobile {
+    object-fit: cover !important;
+    object-position: center !important;
+    min-height: 100vh;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .hero-section-mobile {
+    height: 100vh;
+    height: 100dvh; /* 動的ビューポート高さ対応 */
+    overflow: hidden; /* はみ出し部分を隠す */
+    position: relative;
+  }
+}
