@@ -396,11 +396,11 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.85, y: 40 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.85, y: 40 }}
+          initial={{ opacity: 0, y: '100%' }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: '100%' }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="fixed bottom-4 right-4 w-96 h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
+          className="fixed bottom-0 right-0 left-0 sm:bottom-4 sm:right-4 sm:left-auto w-full sm:w-96 h-screen sm:h-[600px] bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden"
         >
           {/* ヘッダー */}
           <div className="bg-white border-b border-gray-200 p-4 shadow-sm">
@@ -455,7 +455,7 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
                   className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-xs rounded-xl px-4 py-2.5 shadow-sm transition-all duration-200 ${
+                    className={`max-w-[85%] sm:max-w-xs rounded-xl px-4 py-2.5 shadow-sm transition-all duration-200 ${
                       message.role === 'user'
                         ? 'bg-blue-600 text-white rounded-br-none'
                         : 'bg-gray-100 text-gray-800 rounded-bl-none'
