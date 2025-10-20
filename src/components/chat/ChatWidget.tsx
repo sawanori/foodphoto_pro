@@ -62,25 +62,28 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
         // 既存の会話があるか確認
         let convId = conversationId;
         if (!convId) {
-          // 最新の会話を取得
-          const { data: conversations, error: convError } = await supabase
-            .from('conversations')
-            .select('*')
-            .eq('channel', 'web')
-            .order('created_at', { ascending: false })
-            .limit(1);
+          // localStorage から会話IDを取得（端末固有の会話を復元）
+          const savedConvId = localStorage.getItem('chatConversationId');
 
-          if (convError) {
-            console.error('Error fetching conversations:', convError);
-            setIsLoading(false);
-            return;
+          if (savedConvId) {
+            // 保存された会話IDを確認
+            const { data: existingConv, error: checkError } = await supabase
+              .from('conversations')
+              .select('*')
+              .eq('id', savedConvId)
+              .single();
+
+            if (checkError || !existingConv) {
+              console.warn('Saved conversation not found, creating new one');
+              localStorage.removeItem('chatConversationId');
+            } else {
+              convId = savedConvId;
+              setConversationId(convId);
+            }
           }
 
-          // 会話がある場合はそれを使用、ない場合は新規作成
-          if (conversations && conversations.length > 0) {
-            convId = conversations[0].id;
-            setConversationId(convId);
-          } else {
+          // 保存された会話がない場合は新規作成
+          if (!convId) {
             // 新規会話を作成
             const { data: newConv, error: createError } = await supabase
               .from('conversations')
@@ -99,6 +102,10 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
             }
 
             convId = newConv.id;
+            // localStorage に会話IDを保存
+            if (convId) {
+              localStorage.setItem('chatConversationId', convId);
+            }
             setConversationId(convId);
           }
         }
