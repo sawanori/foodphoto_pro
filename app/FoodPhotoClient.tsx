@@ -988,7 +988,7 @@ const PricingSection = memo(({ onOpenModal }: { onOpenModal?: () => void }) => {
               <span className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-2 py-1 rounded-full text-xs font-bold animate-pulse">
                 🎉 限定
               </span>
-              10月申し込み特典はこちら
+              11月申し込み特典はこちら
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </button>
           </motion.div>

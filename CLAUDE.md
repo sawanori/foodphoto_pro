@@ -19,6 +19,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ### Post-Build
 - **Sitemap generation**: `npm run postbuild` (runs `next-sitemap` automatically after build)
 
+### Testing
+- **Run all tests**: `npm test` (runs Playwright tests)
+- **Run tests with UI**: `npm run test:ui` (opens Playwright UI mode)
+- **Run tests in headed mode**: `npm run test:headed` (shows browser during tests)
+- **Run specific test file**: `npx playwright test e2e/chat.spec.ts`
+- **Run specific test**: `npx playwright test e2e/chat.spec.ts:4` (runs test at line 4)
+- **Run on specific browser**: `npx playwright test --project=chromium`
+
+Test configuration:
+- Test directory: `./e2e`
+- Base URL: `http://localhost:3000`
+- Browsers: Chromium, Firefox, WebKit, Mobile Chrome, Mobile Safari
+- Auto-starts dev server before tests
+- Screenshots captured on failure
+- Traces captured on first retry
+
 ## Architecture
 
 ### Tech Stack

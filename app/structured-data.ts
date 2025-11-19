@@ -268,23 +268,23 @@ export const getStructuredData = () => {
     ]
   }
 
-  // 7. Special Offer Schema (September Campaign)
+  // 7. Special Offer Schema (November Campaign)
   const specialOfferSchema = {
     '@context': 'https://schema.org',
     '@type': 'Offer',
-    name: '10月撮影特典キャンペーン',
+    name: '11月撮影特典キャンペーン',
     description: '飲食店サイトのTOP画像やサムネイルで使用しやすい編集画像を1枚無料プレゼント',
     url: domain,
     priceCurrency: 'JPY',
     price: '0',
-    priceValidUntil: '2024-09-30',
+    priceValidUntil: '2024-11-30',
     itemCondition: 'https://schema.org/NewCondition',
     availability: 'https://schema.org/InStock',
     seller: {
       '@id': `${domain}#organization`
     },
-    validFrom: '2024-09-01',
-    validThrough: '2024-09-30',
+    validFrom: '2024-11-01',
+    validThrough: '2024-11-30',
     eligibleCustomerType: 'Business',
     eligibleTransactionVolume: {
       '@type': 'PriceSpecification',
