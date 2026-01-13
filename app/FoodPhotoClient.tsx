@@ -791,14 +791,14 @@ const FeaturesSection = memo(() => {
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Modal header image - percentage-based height with max constraints */}
-                <div className="relative flex-shrink-0 bg-gray-700" style={{ height: 'clamp(140px, 35vh, 400px)' }}>
+                <div className="relative flex-shrink-0 bg-gray-700 overflow-hidden" style={{ height: 'clamp(140px, 35vh, 400px)' }}>
                   <div className="absolute inset-0 bg-gray-700 animate-pulse" />
                   <OptimizedImage
                     src={selectedFeature.image}
                     alt={optimizeAltText(selectedFeature.title, '飲食店撮影の特徴')}
                     width={800}
                     height={500}
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                     sizes="(max-width: 768px) 100vw, 800px"
                     quality={75}
                     priority
