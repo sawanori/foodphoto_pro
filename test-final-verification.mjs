@@ -78,7 +78,7 @@ async function verifyMockChat() {
 
       // Verify message content
       const expectedMessages = [
-        'こんにちは！飲食店撮影PhotoStudioへようこそ',
+        'はじめまして！料理撮影のプロフェッショナル',
         '料金について教えてください',
         'お問い合わせありがとうございます',
         'スタンダードプランで検討しています',

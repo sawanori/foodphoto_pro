@@ -215,7 +215,7 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
     };
   }, [conversationId, isOpen]);
 
-  // メッセージ送信（Supabaseに保存）
+  // メッセージ送信（APIルート経由でSupabaseに保存 + LINE通知）
   const sendMessage = async (text?: string) => {
     const messageText = text || inputText.trim();
     if (!messageText || isTyping || !conversationId) return;
@@ -227,41 +227,34 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
       // 最初のユーザーメッセージかどうかを判定
       const isFirstUserMessage = !messages.some(msg => msg.role === 'user');
 
-      // ユーザーメッセージをSupabaseに保存
-      const { data: userMsg, error: userError } = await supabase
-        .from('messages')
-        .insert({
-          conversation_id: conversationId,
-          role: 'user',
-          source: 'web',
+      // APIルートを経由してメッセージ送信（LINE通知も行われる）
+      const response = await fetch('/api/chat/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           content: messageText,
-          content_type: 'text/plain',
-          delivered_to_line: false,
-        })
-        .select()
-        .single();
+          conversationId: conversationId,
+        }),
+      });
 
-      if (userError) {
-        console.error('Error sending message:', userError);
+      if (!response.ok) {
+        console.error('Error sending message via API');
         setIsTyping(false);
         return;
       }
 
-      // UIに即座に表示
+      // UIに即座に表示（リアルタイム購読で重複防止済み）
       const userMessage: Message = {
-        ...userMsg,
+        id: `temp-${Date.now()}`,
+        conversation_id: conversationId,
         role: 'user',
+        source: 'web',
+        content: messageText,
+        created_at: new Date().toISOString(),
       };
       setMessages(prev => [...prev, userMessage]);
-
-      // 会話のlast_message_atを更新
-      await supabase
-        .from('conversations')
-        .update({
-          last_message_at: new Date().toISOString(),
-          status: 'active',
-        })
-        .eq('id', conversationId);
 
       // 最初のメッセージの場合のみ自動返信を生成
       if (isFirstUserMessage) {
@@ -442,7 +435,7 @@ export default function ChatWidget({ isOpen: controlledIsOpen, onClose }: ChatWi
                     </svg>
                   </div>
                   <p className="text-gray-600 font-medium">メッセージはまだありません</p>
-                  <p className="text-xs text-gray-400 mt-2">こんにちは！と話しかけてみてください</p>
+                  <p className="text-xs text-gray-400 mt-2">料理撮影についてお気軽にご相談ください</p>
                 </div>
               </div>
             ) : (

@@ -25,7 +25,7 @@ test('Chat Widget Messages Display', async ({ page }) => {
     console.log(`✓ Message divs count: ${messages}`);
 
     // 特定のメッセージテキストを確認
-    const msg1 = await page.locator('text=こんにちは！飲食店撮影PhotoStudioです').count();
+    const msg1 = await page.locator('text=はじめまして！料理撮影のプロフェッショナル').count();
     const msg2 = await page.locator('text=料金について教えてください').count();
     const msg3 = await page.locator('text=スタンダードプランは44,000円').count();
     const msg4 = await page.locator('text=撮影の流れを知りたいです').count();

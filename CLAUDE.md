@@ -103,10 +103,30 @@ Handles food photography order form submissions. Features:
 - Price calculation based on plan, extra time, and options
 - Honeypot field (`website`) for spam prevention
 
+#### Chat API (`/api/chat/*`)
+- `POST /api/chat/start` - Start a new conversation
+- `GET /api/chat/history` - Get message history for a conversation
+- `POST /api/chat/send` - Send a message
+- `POST /api/chat/update-contact` - Update contact information
+
+#### Admin API (`/api/admin/*`)
+Admin panel for managing chat inquiries:
+- `POST /api/admin/auth/login` - Admin authentication (bcrypt + session cookie)
+- `POST /api/admin/auth/logout` - End admin session
+- `GET /api/admin/auth/verify` - Verify admin session
+- `GET /api/admin/conversations` - List all chat conversations
+- `GET /api/admin/messages` - Get messages for a conversation
+- `POST /api/admin/reply` - Send admin reply
+- `POST /api/admin/update-status` - Update conversation status
+
+Admin pages:
+- `/admin/login` - Admin login page
+- `/admin/inbox` - Chat inbox management
+
 **Required Environment Variables:**
-- `SENDGRID_API_KEY`
-- `SENDGRID_FROM_EMAIL`
+- `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`
 - `SENDGRID_TO` (or defaults to `SENDGRID_FROM_EMAIL`)
+- `SUPABASE_SERVICE_ROLE_KEY` (for admin operations)
 
 ### Data Layer
 
@@ -180,8 +200,9 @@ Configuration in `next-sitemap.config.js`:
 
 See `.env.example` for complete list. Critical variables:
 - **SendGrid**: `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`
-- **Supabase**: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- **Supabase**: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
 - **Chat Feature**: `NEXT_PUBLIC_USE_MOCK=true` (use mock API for development, false for Supabase)
+- **LINE Notifications**: `LINE_CHANNEL_ACCESS_TOKEN`, `LINE_ADMIN_GROUP_ID`, `ADMIN_NOTIFY_ENABLED` (admin alerts on new inquiries)
 - **Google Maps**: `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY`
 - **Site Config**: `NEXT_PUBLIC_SITE_DOMAIN`, `NEXT_PUBLIC_SITE_URL`
 - **Analytics**: `NEXT_PUBLIC_GTM_ID` (Google Tag Manager)

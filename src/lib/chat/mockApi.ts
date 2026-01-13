@@ -44,7 +44,7 @@ export const MockChatApi: ChatAPI = {
         conversation_id: conversationId,
         role: 'system',
         source: 'web',
-        content: 'こんにちは！飲食店撮影PhotoStudioへようこそ。お気軽にご質問ください。',
+        content: 'はじめまして！料理撮影のプロフェッショナル、PhotoStudioです。メニュー撮影・店舗撮影のご相談、料金プラン、撮影の流れなど、何でもお気軽にお問い合わせください。',
         created_at: new Date(Date.now() - 180000).toISOString(), // 3分前
       },
       {

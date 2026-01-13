@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { notifyAdminViaLine } from '@/lib/line/adminNotify';
 
 export const runtime = 'nodejs';
 
@@ -74,6 +75,25 @@ export async function POST(req: Request) {
         { error: 'Failed to update contact information' },
         { status: 500 }
       );
+    }
+
+    // Send LINE notification to admin about contact update
+    try {
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://foodphoto-pro.com';
+      const adminUrl = `${siteUrl}/admin/chat?conversationId=${conversationId}`;
+      const contactInfo = [
+        name && `名前: ${name}`,
+        email && `メール: ${email}`
+      ].filter(Boolean).join(', ');
+
+      await notifyAdminViaLine({
+        title: 'チャット連絡先情報登録',
+        preview: contactInfo || '連絡先情報が更新されました',
+        url: adminUrl
+      });
+    } catch (lineError) {
+      console.error('LINE notification failed:', lineError);
+      // Continue even if LINE notification fails
     }
 
     return NextResponse.json({ ok: true });

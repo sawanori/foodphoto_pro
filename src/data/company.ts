@@ -105,5 +105,10 @@ export const companyHistory = [
     year: '2024',
     event: 'プロジェクト数500件突破',
     description: 'さらなる事業拡大と品質向上を実現'
+  },
+  {
+    year: '2025',
+    event: 'FPA Award 2025 Silver受賞',
+    description: 'FPA Professional Food Photography Award 2025にてSilver Winnerを受賞'
   }
 ]

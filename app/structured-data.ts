@@ -21,7 +21,8 @@ export const getStructuredData = () => {
       'https://rpk6snz1bj3dcdnk.public.blob.vercel-storage.com/LP_food_%2021.jpg',
       'https://rpk6snz1bj3dcdnk.public.blob.vercel-storage.com/LP_food_%2022.jpg'
     ],
-    description: 'プロカメラマンによる飲食店専門の料理・店舗撮影サービス。メニュー撮影、店内撮影、フードフォトなど、飲食店の集客に特化した出張撮影を提供。東京・横浜エリア対応。',
+    description: 'FPA Professional Food Photography Award 2025 Silver受賞カメラマンによる飲食店専門の料理・店舗撮影サービス。メニュー撮影、店内撮影、フードフォトなど、飲食店の集客に特化した出張撮影を提供。東京・横浜エリア対応。',
+    award: 'FPA Professional Food Photography Award 2025 Silver Winner',
     email: 'info@non-turn.com',
     address: {
       '@type': 'PostalAddress',

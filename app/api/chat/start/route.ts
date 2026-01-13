@@ -89,7 +89,7 @@ export async function POST() {
       conversation_id: created.id,
       role: 'system',
       source: 'web',
-      content: 'こんにちは！飲食店撮影PhotoStudioへようこそ。お気軽にご質問ください。',
+      content: 'はじめまして！料理撮影のプロフェッショナル、PhotoStudioです。メニュー撮影・店舗撮影のご相談、料金プラン、撮影の流れなど、何でもお気軽にお問い合わせください。',
       content_type: 'text/plain',
       delivered_to_line: false
     });

@@ -1,8 +1,9 @@
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 export const runtime = 'nodejs';
+
+import { notifyAdminViaLine } from '@/lib/line/adminNotify';
 
 function getSupabaseAdmin() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -37,51 +38,26 @@ export async function POST(req: Request) {
       );
     }
 
-    const cookieStore = await cookies();
-    const sessionToken = cookieStore.get('chat_session')?.value;
-
-    if (!sessionToken) {
+    if (!conversationId) {
       return NextResponse.json(
-        { error: 'Session not found' },
-        { status: 401 }
+        { error: 'Conversation ID is required' },
+        { status: 400 }
       );
     }
 
     const supabase = getSupabaseAdmin();
 
-    // Verify conversation belongs to this session
-    let conversation;
-    if (conversationId) {
-      const { data } = await supabase
-        .from('conversations')
-        .select('*')
-        .eq('id', conversationId)
-        .eq('session_token', sessionToken)
-        .single();
+    // Verify conversation exists
+    const { data: conversation, error: convError } = await supabase
+      .from('conversations')
+      .select('*')
+      .eq('id', conversationId)
+      .single();
 
-      conversation = data;
-    }
-
-    // Create conversation if not exists
-    if (!conversation) {
-      const { data: created } = await supabase
-        .from('conversations')
-        .insert({
-          channel: 'web',
-          status: 'new',
-          session_token: sessionToken,
-          last_message_at: new Date().toISOString(),
-        })
-        .select()
-        .single();
-
-      conversation = created;
-    }
-
-    if (!conversation) {
+    if (convError || !conversation) {
       return NextResponse.json(
-        { error: 'Failed to find or create conversation' },
-        { status: 500 }
+        { error: 'Conversation not found' },
+        { status: 404 }
       );
     }
 
@@ -108,6 +84,21 @@ export async function POST(req: Request) {
       .from('conversations')
       .update({ last_message_at: new Date().toISOString() })
       .eq('id', conversation.id);
+
+    // Send LINE notification to admin
+    try {
+      const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://foodphoto-pro.com';
+      const adminUrl = `${siteUrl}/admin/chat?conversationId=${conversation.id}`;
+
+      await notifyAdminViaLine({
+        title: '新しいチャットメッセージ',
+        preview: content.trim().slice(0, 100),
+        url: adminUrl
+      });
+    } catch (lineError) {
+      console.error('LINE notification failed:', lineError);
+      // Continue even if LINE notification fails
+    }
 
     return NextResponse.json({
       ok: true,
