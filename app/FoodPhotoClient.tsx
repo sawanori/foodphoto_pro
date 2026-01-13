@@ -673,6 +673,34 @@ NewsSection.displayName = 'NewsSection'
 // Lazy loaded FeaturesSection with proper optimization
 const FeaturesSection = memo(() => {
   const [selectedFeature, setSelectedFeature] = useState<any>(null)
+
+  // Body scroll lock and keyboard handling when modal is open
+  useEffect(() => {
+    if (selectedFeature) {
+      const scrollY = window.scrollY
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollY}px`
+      document.body.style.width = '100%'
+      document.body.style.overflow = 'hidden'
+
+      // Close modal on Escape key
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setSelectedFeature(null)
+        }
+      }
+      document.addEventListener('keydown', handleKeyDown)
+
+      return () => {
+        document.body.style.position = ''
+        document.body.style.top = ''
+        document.body.style.width = ''
+        document.body.style.overflow = ''
+        window.scrollTo(0, scrollY)
+        document.removeEventListener('keydown', handleKeyDown)
+      }
+    }
+  }, [selectedFeature])
   
   const features = [
     {
@@ -750,19 +778,20 @@ const FeaturesSection = memo(() => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-3 sm:p-4"
+              style={{ paddingTop: 'max(12px, env(safe-area-inset-top))', paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}
               onClick={() => setSelectedFeature(null)}
             >
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-gray-800 rounded-2xl w-full max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-3xl overflow-hidden flex flex-col"
-                style={{ maxHeight: '95vh', margin: 'auto' }}
+                className="bg-gray-800 rounded-xl sm:rounded-2xl w-full max-w-[calc(100vw-24px)] sm:max-w-lg md:max-w-2xl lg:max-w-3xl overflow-hidden flex flex-col"
+                style={{ maxHeight: 'calc(100vh - max(24px, env(safe-area-inset-top)) - max(24px, env(safe-area-inset-bottom)))' }}
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Modal header image - responsive height */}
-                <div className="relative flex-shrink-0 h-[200px] sm:h-[300px] md:h-[400px] lg:h-[450px] xl:h-[500px] bg-gray-700">
+                {/* Modal header image - percentage-based height with max constraints */}
+                <div className="relative flex-shrink-0 bg-gray-700" style={{ height: 'clamp(140px, 35vh, 400px)' }}>
                   <div className="absolute inset-0 bg-gray-700 animate-pulse" />
                   <OptimizedImage
                     src={selectedFeature.image}
@@ -776,23 +805,25 @@ const FeaturesSection = memo(() => {
                   />
                   <button
                     onClick={() => setSelectedFeature(null)}
-                    className="absolute top-2 right-2 sm:top-4 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-black/90 transition-all border-2 border-white/30"
+                    className="absolute top-2 right-2 sm:top-3 sm:right-3 w-9 h-9 sm:w-11 sm:h-11 bg-black/70 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-black/90 transition-all border-2 border-white/30 z-10"
+                    aria-label="閉じる"
                   >
-                    <span className="text-white text-xl sm:text-2xl font-bold">×</span>
+                    <span className="text-white text-lg sm:text-xl font-bold leading-none">×</span>
                   </button>
                 </div>
 
-                {/* Modal content - responsive padding and text */}
+                {/* Modal content - scrollable with guaranteed min height */}
                 <div
-                  className="flex-grow p-4 sm:p-6 md:p-8 bg-white overflow-y-auto min-h-0"
+                  className="flex-1 p-4 sm:p-5 md:p-6 bg-white overflow-y-auto"
+                  style={{ minHeight: 'clamp(120px, 25vh, 200px)' }}
                 >
-                  <div className="flex items-center gap-3 sm:gap-4 mb-4">
-                    <span className="text-2xl sm:text-3xl md:text-4xl flex-shrink-0">{selectedFeature.icon}</span>
-                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800">
+                  <div className="flex items-start gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <span className="text-xl sm:text-2xl md:text-3xl flex-shrink-0 leading-tight">{selectedFeature.icon}</span>
+                    <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-800 leading-snug break-words">
                       {selectedFeature.title}
                     </h2>
                   </div>
-                  <p className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed">
+                  <p className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed break-words">
                     {selectedFeature.fullDescription}
                   </p>
                 </div>
