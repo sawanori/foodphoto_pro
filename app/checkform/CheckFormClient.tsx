@@ -339,6 +339,10 @@ export default function CheckFormClient() {
               </div>
             </div>
 
+            <p className="text-xs text-gray-500 leading-relaxed">
+              ※ 送信完了後、ご入力いただいたメールアドレス宛に控えを自動送信いたします。メールが届かない場合は、迷惑メールフォルダもご確認ください。
+            </p>
+
             <button
               type="submit"
               className="w-full py-4 px-6 bg-gradient-to-r from-orange-400 to-red-500 text-white text-lg font-semibold rounded-lg hover:from-red-500 hover:to-pink-500 transition-all"
