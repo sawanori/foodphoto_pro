@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
     // メール本文を構築
     const text = [
       "━━━━━━━━━━━━━━━━━━━━━━",
-      "飲食店撮影PhotoStudio 撮影お申し込み",
+      "NonTurn合同会社 撮影お申し込み",
       "━━━━━━━━━━━━━━━━━━━━━━",
       "",
       "【撮影店舗情報】",
@@ -113,7 +113,7 @@ export async function POST(req: NextRequest) {
     const html = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="background: linear-gradient(to right, #fb923c, #ef4444); color: white; padding: 20px; margin: 0;">
-          飲食店撮影PhotoStudio 撮影お申し込み
+          NonTurn合同会社 撮影お申し込み
         </h2>
         <div style="padding: 20px; background: #f9f9f9;">
           <pre style="font-family: monospace; white-space: pre-wrap; word-wrap: break-word;">
@@ -133,11 +133,11 @@ ${text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}
     });
     
     // 申込者への確認メール
-    const applicantSubject = `【飲食店撮影PhotoStudio】撮影依頼を承りました`;
+    const applicantSubject = `【NonTurn合同会社】撮影依頼を承りました`;
     const applicantText = [
       `${parsed.store.managerName} 様`,
       "",
-      "この度は飲食店撮影PhotoStudioへ撮影依頼をいただき、",
+      "この度はNonTurn合同会社へ撮影依頼をいただき、",
       "誠にありがとうございます。",
       "",
       "下記の内容でお申し込みを承りました。",
@@ -200,7 +200,6 @@ ${text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}
       "※ご不明な点がございましたら、下記までお問い合わせください。",
       "",
       "━━━━━━━━━━━━━━━━━━━━━━",
-      "飲食店撮影PhotoStudio",
       "NonTurn合同会社",
       "URL: https://foodphoto-pro.com",
       "お問い合わせ: https://non-turn.com/contact",
@@ -210,7 +209,7 @@ ${text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}
     const applicantHtml = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="background: linear-gradient(to right, #fb923c, #ef4444); color: white; padding: 20px; margin: 0;">
-          飲食店撮影PhotoStudio - 撮影依頼確認
+          NonTurn合同会社 - 撮影依頼確認
         </h2>
         <div style="padding: 20px; background: #f9f9f9;">
           <pre style="font-family: 'Hiragino Sans', 'Meiryo', sans-serif; white-space: pre-wrap; word-wrap: break-word; line-height: 1.6;">

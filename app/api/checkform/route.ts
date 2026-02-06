@@ -128,7 +128,6 @@ export async function POST(req: NextRequest) {
       "※ご不明な点がございましたら、下記までお問い合わせください。",
       "",
       "━━━━━━━━━━━━━━━━━━━━━━",
-      "飲食店撮影PhotoStudio",
       "NonTurn合同会社",
       "URL: https://foodphoto-pro.com",
       "お問い合わせ: https://non-turn.com/contact",
@@ -138,7 +137,7 @@ export async function POST(req: NextRequest) {
     const applicantHtml = `
       <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="background: linear-gradient(to right, #fb923c, #ef4444); color: white; padding: 20px; margin: 0;">
-          飲食店撮影PhotoStudio - 無料撮影サンプル確認
+          NonTurn合同会社 - 無料撮影サンプル確認
         </h2>
         <div style="padding: 20px; background: #f9f9f9;">
           <pre style="font-family: 'Hiragino Sans', 'Meiryo', sans-serif; white-space: pre-wrap; word-wrap: break-word; line-height: 1.6;">${applicantText.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>
@@ -149,7 +148,7 @@ export async function POST(req: NextRequest) {
     await sgMail.send({
       to: email,
       from,
-      subject: "【飲食店撮影PhotoStudio】無料撮影サンプルのお申し込みを承りました",
+      subject: "【NonTurn合同会社】無料撮影サンプルのお申し込みを承りました",
       text: applicantText,
       html: applicantHtml,
     });
